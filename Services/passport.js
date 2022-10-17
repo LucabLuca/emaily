@@ -19,7 +19,8 @@ passport.deserializeUser((id, done) => {
 passport.use(new GoogleStrategy({
     clientID: keys.googleClientID,
     clientSecret: keys.googleClientSecret,
-    callbackURL: '/auth/google/callback'
+    callbackURL: '/auth/google/callback',
+    proxy : true
 }, (accessToken, refreshToken, profile, done) => {
     User.findOne({googleId : profile.id}) //cerco il record con il profile id che si sta loggando
         .then ((existingUser) =>{ //promise sarebbe una query che verifica su mongo la presenza dell'utente in un arrow function
