@@ -20,17 +20,17 @@ passport.use(new GoogleStrategy({
     clientID: keys.googleClientID,
     clientSecret: keys.googleClientSecret,
     callbackURL: '/auth/google/callback',
-    proxy : true
-}, (accessToken, refreshToken, profile, done) => {
-    User.findOne({googleId : profile.id}) //cerco il record con il profile id che si sta loggando
-        .then ((existingUser) =>{ //promise sarebbe una query che verifica su mongo la presenza dell'utente in un arrow function
-            if(existingUser){
-                //we alredy have a record with the given GoogleId
-                done(null, existingUser);
-            } else {
-                new User({googleId: profile.id})
-                    .save() // creo un nuovo utente e lo salvo nella tabella
-                    .then(user => done(null, user)); //call back che da il done() a express per chiudere la chiamata
-            }
-        });
-})); // creazione nuova istanza di google strategy
+    proxy : true //aggiungo per evitare errore sulla callback http anzichè https
+    }, 
+    async (accessToken, refreshToken, profile, done) => {
+        const existingUser = await User.findOne({googleId : profile.id}) //cerco il record con il profile id che si sta loggando
+        
+        if(existingUser){
+            //we alredy have a record with the given GoogleId
+            return done(null, existingUser); // esco dalla funzione con il return ed evito la condizione else
+        }
+            const user = await new User({googleId: profile.id}).save() // creo un nuovo utente e lo salvo nella tabella
+            done(null, user);
+    }
+    )
+); // creazione nuova istanza di google strategy

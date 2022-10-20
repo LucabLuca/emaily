@@ -5,11 +5,18 @@ module.exports = (app) => { // incapsulo le due get per farle esportare all'este
         scope: ['profile' , 'email']
     }));
 
-    app.get('/auth/google/callback' , passport.authenticate('google')); //Richiamo express per la route della callback, non passo più profile ed email come argomenti
+    app.get(
+        '/auth/google/callback' , 
+        passport.authenticate('google'),
+        (req,res) => {
+            res.redirect('/surveys');
+        }
+        ); //Richiamo express per la route della callback, non passo più profile ed email come argomenti
 
     app.get('/api/logout', (req, res) => {
         req.logout(); // route per il log out dell'user
-        res.send(req.user);
+        res.redirect('/');
+        //res.send(req.user);
     });
 
     app.get('/api/current_user', (req, res) => {
