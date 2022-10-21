@@ -16,11 +16,9 @@ module.exports = (app) => { // incapsulo le due get per farle esportare all'este
     app.get('/api/logout', (req, res) => {
         req.logout(); // route per il log out dell'user
         res.redirect('/');
-        //res.send(req.user);
     });
 
     app.get('/api/current_user', (req, res) => {
         res.send(req.user);
     });
-
 };
