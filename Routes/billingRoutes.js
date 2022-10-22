@@ -1,4 +1,4 @@
-const keys = require('../config/keys');
+const keys = require('../Config/keys');
 const stripe = require ('stripe')(keys.stripeSecretKey);
 const requireLogin = require('../middlewares/requireLogin'); //middleware per la verifica dell'utente loggato
 
