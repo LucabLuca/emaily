@@ -5,6 +5,7 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const keys = require('./Config/keys');
 require('./models/User');
+require('./models/Survey');
 require('./Services/passport');
 
 
@@ -26,6 +27,7 @@ app.use(passport.session());
 
 require('./Routes/authRoutes')(app); // richiamo il file dove ho le routes e passo (app) all'unica funzione che c'è all'interno
 require('./Routes/billingRoutes')(app);
+require('./Routes/surveyRoutes')(app); //richiamo la route per i survey e passo parametri app(express)
 
 //route per production
 
