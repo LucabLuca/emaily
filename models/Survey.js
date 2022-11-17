@@ -10,8 +10,9 @@ const surveySchema = new Schema ({
     yes: {type: Number, default: 0},
     no: {type: Number, default: 0},
     _user: {type: Schema.Types.ObjectId, ref: 'User'},// refernza a un particolare user e mongo lo capisce da se _ si usa per indicare il campo relazionato
-    dateSent: Date, // per dire quando ha risposto
-    lastResponded: Date // per dire quando ha risposto l'ultima volta
+    lastResponded: {type: Date, default: null}, // per dire quando ha risposto l'ultima volta
+    dateSent: Date // per dire quando ha risposto
+    
 });
 
 mongoose.model('surveys', surveySchema); //creazione tabella mongo con i parametri passati prima
