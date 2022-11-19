@@ -2,6 +2,11 @@ import React, {Component} from "react";
 import { connect } from "react-redux";
 import { fetchSurveys } from "../../actions";
 
+
+function deleteSurvey(title){
+    /// da cancellare messa per compilare
+};
+
 class SurveyList extends Component {
 
     componentDidMount(){
@@ -24,7 +29,14 @@ class SurveyList extends Component {
                     <div className="card-action">
                         <a>Yes: {survey.yes}</a>
                         <a>No: {survey.no}</a>
+
+                        
+                        <button onClick={() => deleteSurvey(survey.title)} class="waves-effect waves-light red btn-small right">
+                            Delete Survey
+                            <i className="material-icons left">cancel</i>
+                        </button>
                     </div>
+                    
                 </div>
             )
         });
